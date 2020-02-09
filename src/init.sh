@@ -13,10 +13,10 @@ done
 NEAT="$(cd -P "$(dirname "$NEAT_SOURCE")" > /dev/null 2>&1 && pwd)"
 unset NEAT_SOURCE
 
-source $NEAT/util.sh
-source $NEAT/colors.sh
-source $NEAT/prompt.sh
+source "$NEAT/util.sh"
+source "$NEAT/colors.sh"
+source "$NEAT/prompt.sh"
+source "$NEAT/plugins.sh"
+source "$NEAT/neatrc/init.sh"
 
-if [ -f $HOME/.neatrc ]; then
-    source $HOME/.neatrc
-fi
+export PATH="$(cd $NEAT && cd ../ && pwd)/bin:$PATH"
