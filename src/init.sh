@@ -1,12 +1,22 @@
-# from https://stackoverflow.com/questions/59895/
+# resolver code based on code from https://stackoverflow.com/questions/59895/
 # how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 
-BP_SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$BP_SOURCE" ]; do # resolve $BP_SOURCE until the file is no longer a symlink
-    DIR="$( cd -P "$( dirname "$BP_SOURCE" )" >/dev/null 2>&1 && pwd )"
-    BP_SOURCE="$(readlink "$BP_SOURCE")"
-    [[ $BP_SOURCE != /* ]] && BP_SOURCE="$DIR/$BP_SOURCE" # if $BP_SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-BP_DIR="$( cd -P "$( dirname "$BP_SOURCE" )" >/dev/null 2>&1 && pwd )"
+NEAT_SOURCE="${BASH_SOURCE[0]}"
 
-source $BP_DIR/prompt.sh
+while [ -h "$NEAT_SOURCE" ]; do # resolve $NEAT_SOURCE until it is not a symlink
+    NEAT_DIR="$(cd -P "$(dirname "$NEAT_SOURCE")" > /dev/null 2>&1 && pwd)"
+    NEAT_SOURCE="$(readlink "$NEAT_SOURCE")"
+    # if $NEAT_SOURCE is a symlink, resolve its path relative from the symlink
+    [[ "$NEAT_SOURCE" != /* ]] && NEAT_SOURCE="$NEAT_DIR/$NEAT_SOURCE"
+done
+
+NEAT="$(cd -P "$(dirname "$NEAT_SOURCE")" > /dev/null 2>&1 && pwd)"
+unset NEAT_SOURCE
+
+source $NEAT/util.sh
+source $NEAT/colors.sh
+source $NEAT/prompt.sh
+
+if [ -f $HOME/.neatrc ]; then
+    source $HOME/.neatrc
+fi
