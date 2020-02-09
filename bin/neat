@@ -1,0 +1,3 @@
+#!/bin/bash
+
+printf "\033[3;1mneat\033[0m CLI: work in progress, please come back later\n"
