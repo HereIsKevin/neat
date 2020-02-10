@@ -2,7 +2,7 @@ _neat_plugin_git_branch() {
     local is_repo="$(git rev-parse --is-inside-work-tree 2>&1)"
 
     if [[ "$is_repo" == "true" ]]; then
-        printf "$(git branch --show-current) "
+        printf "$(git rev-parse --abbrev-ref HEAD) "
     else
         printf ""
     fi
