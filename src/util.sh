@@ -25,7 +25,7 @@ _neat_error() {
         local message="$1"
     fi
 
-    printf "error: ${message}"
+    printf "error: %s\n" "$message" >&2
 
     if [[ "$quit" == true ]]; then
         exit "1"

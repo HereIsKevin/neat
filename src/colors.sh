@@ -79,7 +79,7 @@ neat_color_set() {
         _neat_error "new color value must be specified"
     fi
 
-    if _neat_contains "$colors" "$color"; then
+    if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
         eval "NEAT_$color=\"$value\""
     else
         _neat_error "${color,,} is not a color"
@@ -125,7 +125,7 @@ neat_color_get() {
     local color="${1^^}"
     local var="$"
 
-    if _neat_contains "$colors" "$color"; then
+    if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
         eval "echo ${var}NEAT_${color}"
     else
         _neat_error "${color,,} is not a color"
