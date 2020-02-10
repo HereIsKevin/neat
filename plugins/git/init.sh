@@ -8,30 +8,20 @@ _neat_plugin_git_branch() {
     fi
 }
 
-_neat_plugin_git_branch_wrapper() {
-    printf '$(_neat_plugin_git_branch)'
-}
-
 neat_plugin_git_branch() {
-    NEAT_PROMPT="${NEAT_PROMPT}$(_neat_plugin_git_branch_wrapper)"
+    NEAT_PROMPT+=("_neat_plugin_git_branch")
 }
 
 _neat_plugin_git_status() {
     local is_repo="$(git rev-parse --is-inside-work-tree 2>&1)"
 
-    if [[ "$is_repo" == "true" ]] && [[ "$(git status --short)" != "" ]]; then
+    if [[ "$is_repo" == true ]] && [[ "$(git status --short)" != "" ]]; then
         printf "* "
-    elif [[ "$is_repo" == true ]]; then
-        printf " "
     else
         printf ""
     fi
 }
 
-_neat_plugin_git_status_wrapper() {
-    printf '$(_neat_plugin_git_status)'
-}
-
 neat_plugin_git_status() {
-    NEAT_PROMPT="${NEAT_PROMPT}$(_neat_plugin_git_status_wrapper)"
+    NEAT_PROMPT+=("_neat_plugin_git_status")
 }
