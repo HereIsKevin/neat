@@ -16,9 +16,9 @@ format() {
 _build() {
     cat "$1" | while read -r line || [[ -n $line ]]; do
         if echo "$line" | grep -e "source \"\$NEAT/.*" > /dev/null; then
-            local nextfile="${line//'source '/}"
+            local nextfile="${line/'source '/}"
             nextfile="${nextfile/'$NEAT'/./src}"
-            nextfile="${nextfile//\"/}"
+            nextfile="${nextfile//'"'/}"
             _build "$nextfile"
         else
             echo "$line" >> $OUTFILE
