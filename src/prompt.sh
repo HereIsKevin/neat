@@ -1,5 +1,7 @@
 NEAT_PROMPT=()
 NEAT_OLD_DIR=""
+NEAT_UPDATE="false"
+NEAT_CHECK=()
 
 neat_prompt_color() {
     local colors=(
@@ -120,8 +122,13 @@ neat_prompt_cmdnumber() {
 }
 
 neat_prompt_update() {
-    if [[ "$(pwd)" != "$NEAT_OLD_DIR" ]]; then
+    for item in "${NEAT_CHECK[@]}"; do
+        eval "$item"
+    done
+
+    if [[ "$(pwd)" != "$NEAT_OLD_DIR" || "$NEAT_UPDATE" == "true" ]]; then
         NEAT_OLD_DIR="$(pwd)"
+        NEAT_UPDATE="false"
 
         local prompt=""
 
