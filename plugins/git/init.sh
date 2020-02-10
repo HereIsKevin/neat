@@ -1,4 +1,4 @@
-NEAT_PLUGIN_GIT_STATUS_CACHE=""
+export NEAT_PLUGIN_GIT_STATUS_CACHE=""
 
 _neat_plugin_git_branch() {
     local is_repo="$(git rev-parse --is-inside-work-tree 2>&1)"
