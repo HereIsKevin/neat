@@ -1,4 +1,5 @@
 NEAT_PROMPT=()
+NEAT_OLD_DIR=""
 
 neat_prompt_color() {
     local colors=(
@@ -119,19 +120,23 @@ neat_prompt_cmdnumber() {
 }
 
 neat_prompt_update() {
-    local prompt=""
+    if [[ "$(pwd)" != "$NEAT_OLD_DIR" ]]; then
+        NEAT_OLD_DIR="$(pwd)"
 
-    for item in "${NEAT_PROMPT[@]}"; do
-        if echo "$item" | grep -e "color .*" > /dev/null; then
-            prompt="${prompt}${item/'color '/}"
-        elif echo "$item" | grep -e "text .*" > /dev/null; then
-            prompt="${prompt}${item/'text '/}"
-        else
-            prompt="${prompt}$(eval "$item")"
-        fi
-    done
+        local prompt=""
 
-    export PS1="$prompt"
+        for item in "${NEAT_PROMPT[@]}"; do
+            if echo "$item" | grep -e "color .*" > /dev/null; then
+                prompt="${prompt}${item/'color '/}"
+            elif echo "$item" | grep -e "text .*" > /dev/null; then
+                prompt="${prompt}${item/'text '/}"
+            else
+                prompt="${prompt}$(eval "$item")"
+            fi
+        done
+
+        export PS1="$prompt"
+    fi
 }
 
 export PROMPT_COMMAND="neat_prompt_update"
