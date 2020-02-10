@@ -118,10 +118,6 @@ neat_prompt_cmdnumber() {
     neat_prompt_text "\#"
 }
 
-neat_prompt_prompt() {
-    neat_prompt_text "\$"
-}
-
 neat_prompt_update() {
     export PS1="$NEAT_PROMPT"
 }

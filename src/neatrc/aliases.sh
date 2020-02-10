@@ -25,4 +25,4 @@ alias color_set="neat_color_set"
 alias color_get="neat_color_get"
 
 # plugins
-alias plugin_load="neat_plugin_loat"
+alias plugin_load="neat_plugin_load"

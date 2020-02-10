@@ -19,4 +19,4 @@ source "$NEAT/prompt.sh"
 source "$NEAT/plugins.sh"
 source "$NEAT/neatrc/init.sh"
 
-export PATH="$(cd $NEAT && cd ../ && pwd)/bin:$PATH"
+export PATH="$NEAT/bin:$PATH"
