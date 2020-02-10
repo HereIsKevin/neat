@@ -1,4 +1,4 @@
-NEAT_PROMPT=""
+NEAT_PROMPT=()
 
 neat_prompt_color() {
     local colors=(
@@ -40,7 +40,7 @@ neat_prompt_color() {
     local var="$"
 
     if _neat_contains "$colors" "$color"; then
-        eval "NEAT_PROMPT=\"${NEAT_PROMPT}\001${var}NEAT_${color}\002\""
+        NEAT_PROMPT+=("color $(eval "echo \"\001${var}NEAT_${color}\002\"")")
     else
         _neat_error "${color,,} is not a color"
     fi
@@ -50,7 +50,7 @@ neat_prompt_text() {
     if [[ $1 == "" ]]; then
         _neat_error "no arguments were passed"
     else
-        NEAT_PROMPT="${NEAT_PROMPT}$1"
+        NEAT_PROMPT+=("text $1")
     fi
 }
 
@@ -119,5 +119,19 @@ neat_prompt_cmdnumber() {
 }
 
 neat_prompt_update() {
-    export PS1="$NEAT_PROMPT"
+    local prompt=""
+
+    for item in "${NEAT_PROMPT[@]}"; do
+        if echo "$item" | grep -e "color .*" > /dev/null; then
+            prompt="${prompt}${item/'color '/}"
+        elif echo "$item" | grep -e "text .*" > /dev/null; then
+            prompt="${prompt}${item/'text '/}"
+        else
+            prompt="${prompt}$(eval "$item")"
+        fi
+    done
+
+    export PS1="$prompt"
 }
+
+export PROMPT_COMMAND="neat_prompt_update"

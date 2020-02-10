@@ -4,7 +4,7 @@ neat_plugin_load() {
     local path="$1"
 
     if [ -d "$path" ]; then
-        NEAT_PLUGINS+="$path"
+        NEAT_PLUGINS+=("$path")
     fi
 
     source "$path/init.sh"
