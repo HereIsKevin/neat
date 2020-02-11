@@ -11,7 +11,7 @@ _neat_plugin_git_branch() {
 }
 
 neat_plugin_git_branch() {
-    if [[ "$(_neat_contains "NEAT_UPDATE" "neat_status")" == "0" ]]; then
+    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_plugin_git_status")" != "1" ]]; then
         NEAT_CHECK+=("neat_plugin_git_update")
     fi
 
@@ -29,7 +29,7 @@ _neat_plugin_git_status() {
 }
 
 neat_plugin_git_status() {
-    if [[ "$(_neat_contains "NEAT_UPDATE" "neat_status")" == "0" ]]; then
+    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_status")" != "1" ]]; then
         NEAT_CHECK+=("neat_plugin_git_update")
     fi
 
@@ -37,7 +37,7 @@ neat_plugin_git_status() {
 }
 
 neat_plugin_git_update() {
-    local git_status="$(git status)"
+    local git_status="$(git status 2>&1)"
 
     if [[ "$git_status" != "$NEAT_PLUGIN_GIT_STATUS_CACHE" ]]; then
         NEAT_PLUGIN_GIT_STATUS_CACHE="$git_status"
