@@ -122,6 +122,8 @@ neat_prompt_cmdnumber() {
 }
 
 neat_prompt_update() {
+    NEAT_EXIT_CODE="$?"
+
     for item in "${NEAT_CHECK[@]}"; do
         eval "$item"
     done
