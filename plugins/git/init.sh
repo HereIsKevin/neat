@@ -37,7 +37,7 @@ neat_plugin_git_status() {
 }
 
 neat_plugin_git_update() {
-    local git_status="$(git status 2>&1)"
+    local git_status="$(git status --porcelain 2>&1)"
 
     if [[ "$git_status" != "$NEAT_PLUGIN_GIT_STATUS_CACHE" ]]; then
         NEAT_PLUGIN_GIT_STATUS_CACHE="$git_status"
