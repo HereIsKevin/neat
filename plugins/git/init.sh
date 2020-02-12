@@ -21,7 +21,7 @@ neat_plugin_git_branch() {
 _neat_plugin_git_status() {
     local is_repo="$(git rev-parse --is-inside-work-tree 2>&1)"
 
-    if [[ "$is_repo" == true ]] && [[ "$(git status --short)" != "" ]]; then
+    if [[ "$is_repo" == true ]] && [[ "$(git status --porcelain)" != "" ]]; then
         printf "* "
     else
         printf ""
