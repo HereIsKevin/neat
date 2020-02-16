@@ -3,7 +3,7 @@ source "$NEAT/neatrc/aliases.sh"
 
 NEAT_RCS=(
     "$HOME/.neatrc"
-    "$NEAT/neatrc/neatrc.sh"
+    "$NEAT/lib/neatrc.sh"
 )
 
 for file in "${NEAT_RCS[@]}"; do
