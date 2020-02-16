@@ -10,7 +10,7 @@ format() {
     _format "./bin/*" "./bin/**/*" \
         "./plugins/*" "./plugins/**/*" \
         "./src/*" "./src/**/*" \
-        "./tool.sh" "./neat.sh" 2> /dev/null
+        "./tool.sh" 2> /dev/null
 }
 
 _build() {
@@ -28,12 +28,26 @@ _build() {
 
 build() {
     clean
+    
     _build "./src/init.sh"
-    _format "./neat.sh"
+    
+    mkdir "./out/"
+    mv "./neat.sh" "./out/"
+    
+    mkdir "./out/bin/"
+    cp "./bin/neat" "./out/bin/"
+
+    mkdir "./out/lib/"
+    cp "./src/neatrc/neatrc.sh" "./out/lib/"
+    
+    mkdir "./out/plugins/"
+    cp -rf "./plugins/" "./out/plugins/"
+    
+    _format "./out/*" "./out/**/*"
 }
 
 clean() {
-    rm "./neat.sh" 2> /dev/null
+    rm -rf "./out/" 2> /dev/null
 }
 
 show_help() {
