@@ -27,7 +27,7 @@ _neat_error() {
 
     printf "error: %s\n" "$message" >&2
 
-    if [[ "$quit" == true ]]; then
+    if [[ "$quit" == "1" ]]; then
         exit "1"
     else
         return "1"

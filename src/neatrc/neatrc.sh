@@ -1,4 +1,4 @@
-plugin_load "$NEAT_BUILTIN/git/"
+plugin_load "git"
 
 color "bright_green"
 username

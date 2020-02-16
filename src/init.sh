@@ -16,7 +16,6 @@ unset NEAT_SOURCE
 source "$NEAT/util.sh"
 source "$NEAT/colors.sh"
 source "$NEAT/prompt.sh"
-source "$NEAT/plugins.sh"
 source "$NEAT/neatrc/init.sh"
 
 export PATH="$NEAT/bin:$PATH"

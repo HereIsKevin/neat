@@ -80,9 +80,9 @@ neat_color_set() {
     fi
 
     if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
-        eval "NEAT_$color=\"$value\""
+        declare "NEAT_$color=$value"
     else
-        _neat_error "${color,,} is not a color"
+        _neat_error "$1 is not a color"
     fi
 }
 
@@ -123,10 +123,10 @@ neat_color_get() {
     )
 
     local color="${1^^}"
-    local var="$"
 
     if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
-        eval "echo ${var}NEAT_${color}"
+        local var="NEAT_$color"
+        echo "${!var}"
     else
         _neat_error "${color,,} is not a color"
     fi

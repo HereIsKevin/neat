@@ -1,7 +1,8 @@
 NEAT_PROMPT=()
-NEAT_OLD_DIR=""
-NEAT_UPDATE="false"
 NEAT_CHECK=()
+NEAT_OLD_DIR=""
+NEAT_UPDATE="0"
+NEAT_EXIT_CODE="$?"
 
 neat_prompt_color() {
     local colors=(
@@ -128,9 +129,9 @@ neat_prompt_update() {
         eval "$item"
     done
 
-    if [[ "$(pwd)" != "$NEAT_OLD_DIR" || "$NEAT_UPDATE" == "true" ]]; then
+    if [[ "$(pwd)" != "$NEAT_OLD_DIR" ]] || [[ "$NEAT_UPDATE" == "1" ]]; then
         NEAT_OLD_DIR="$(pwd)"
-        NEAT_UPDATE="false"
+        NEAT_UPDATE="0"
 
         local prompt=""
 
@@ -148,4 +149,4 @@ neat_prompt_update() {
     fi
 }
 
-export PROMPT_COMMAND="neat_prompt_update"
+export PROMPT_COMMAND="{ time neat_prompt_update; } &>> ~/times.txt"

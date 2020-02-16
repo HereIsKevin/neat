@@ -1,27 +1,23 @@
-NEAT_PLUGIN_EXIT_CODE_CACHE="normal"
-NEAT_PLUGIN_EXIT_CODE_CODE=""
+NEAT_EXIT_CODE_CACHE=""
 
 _neat_plugin_exit_code() {
     if [[ "$NEAT_EXIT_CODE" > "0" ]]; then
-        neat_prompt_color "bright_red"
+        printf "\001$NEAT_RED\002"
     else
-        neat_prompt_color "reset"
+        printf "\001$NEAT_RESET\002"
     fi
 }
 
-neat_plugin_exit_code_update() {
-    if [[ "$NEAT_EXIT_CODE" > "0" && "$NEAT_PLUGIN_EXIT_CODE_CACHE" == "normal" ]]; then
-        NEAT_UPDATE="true"
-        NEAT_PLUGIN_EXIT_CODE_CACHE="error"
-    elif [[ "$NEAT_EXIT_CODE" == "0" && "$NEAT_PLUGIN_EXIT_CODE_CACHE" == "error" ]]; then
-        NEAT_UPDATE="true"
-        NEAT_PLUGIN_EXIT_CODE_CACHE="normal"
+neat_plugin_exit_code_check() {
+    if [[ "$NEAT_EXIT_CODE" != "$NEAT_EXIT_CODE_CACHE" ]]; then
+        NEAT_UPDATE="1"
+        NEAT_EXIT_CODE_CACHE="$NEAT_EXIT_CODE"
     fi
 }
 
 neat_plugin_exit_code() {
-    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_plugin_exit_code_update")" != "1" ]]; then
-        NEAT_CHECK+=("neat_plugin_exit_code_update")
+    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_plugin_exit_code_check")" != "1" ]]; then
+        NEAT_CHECK+=("neat_plugin_exit_code_check")
     fi
 
     NEAT_PROMPT+=("_neat_plugin_exit_code")

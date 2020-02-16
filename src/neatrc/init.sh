@@ -1,30 +1,17 @@
+source "$NEAT/neatrc/plugins.sh"
 source "$NEAT/neatrc/aliases.sh"
 
 NEAT_RCS=(
     "$HOME/.neatrc"
+    "$NEAT/neatrc/neatrc.sh"
 )
 
-NEAT_INSTALL="$HOME/.neat/"
-NEAT_BUILTIN="$NEAT/plugins/"
-
-NEAT_SOURCED="false"
-
-
 for file in "${NEAT_RCS[@]}"; do
-    if [ -f "$file" ]; then
+    if [[ -f "$file" ]]; then
         source "$file"
-        NEAT_SOURCED="true"
+        break
     fi
 done
-
-if [[ "$NEAT_SOURCED" == "false" ]]; then
-    source "$NEAT/neatrc/neatrc.sh"
-fi
 
 source "$NEAT/neatrc/unaliases.sh"
-
-for path in "${NEAT_PLUGINS[@]}"; do
-    if [ -f "$path/unaliases.sh" ]; then
-        source "$path/unaliases.sh"
-    fi
-done
+neat_plugin_cleanup
