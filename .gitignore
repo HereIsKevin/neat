@@ -1,3 +1,5 @@
-neat.sh
-.replit
+# build directory
+out/
 
+# reel.it run file
+.replit
