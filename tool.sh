@@ -28,21 +28,21 @@ _build() {
 
 build() {
     clean
-    
+
     _build "./src/init.sh"
-    
+
     mkdir "./out/"
     mv "./neat.sh" "./out/"
-    
+
     mkdir "./out/bin/"
     cp "./bin/neat" "./out/bin/"
 
     mkdir "./out/lib/"
     cp "./src/neatrc/neatrc.sh" "./out/lib/"
-    
+
     mkdir "./out/plugins/"
-    cp -rf "./plugins/" "./out/plugins/"
-    
+    cp -r "./plugins/" "./out/"
+
     _format "./out/*" "./out/**/*"
 }
 
