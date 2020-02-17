@@ -41,7 +41,7 @@ build() {
     cp "./src/neatrc/neatrc.sh" "./out/lib/"
 
     mkdir "./out/plugins/"
-    cp -r "./plugins/" "./out/"
+    cp -r "./plugins/." "./out/plugins/"
 
     _format "./out/*" "./out/**/*"
 }
