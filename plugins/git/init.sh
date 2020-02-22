@@ -44,6 +44,7 @@ neat_plugin_git_check() {
     if [[ "$git_status" != "$NEAT_PLUGIN_GIT_STATUS_CACHE" || \
         "$git_branch" != "$NEAT_PLUGIN_GIT_BRANCH_CACHE" ]]; then
         NEAT_PLUGIN_GIT_STATUS_CACHE="$git_status"
+        NEAT_PLUGIN_GIT_BRANCH_CACHE="$git_branch"
         NEAT_UPDATE="1"
     fi
 }
