@@ -1,4 +1,5 @@
 NEAT_PLUGIN_GIT_STATUS_CACHE=""
+NEAT_PLUGIN_GIT_BRANCH_CACHE=""
 
 _neat_plugin_git_branch() {
     local is_repo="$(git rev-parse --is-inside-work-tree 2>&1)"
@@ -38,8 +39,10 @@ neat_plugin_git_status() {
 
 neat_plugin_git_check() {
     local git_status="$(git status --porcelain 2>&1)"
+    local git_branch="$(git rev-parse --abbrev-ref HEAD 2>&1)"
 
-    if [[ "$git_status" != "$NEAT_PLUGIN_GIT_STATUS_CACHE" ]]; then
+    if [[ "$git_status" != "$NEAT_PLUGIN_GIT_STATUS_CACHE" || \
+        "$git_branch" != "$NEAT_PLUGIN_GIT_BRANCH_CACHE" ]]; then
         NEAT_PLUGIN_GIT_STATUS_CACHE="$git_status"
         NEAT_UPDATE="1"
     fi
