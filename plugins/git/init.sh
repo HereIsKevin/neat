@@ -12,7 +12,7 @@ _neat_plugin_git_branch() {
 }
 
 neat_plugin_git_branch() {
-    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_plugin_git_status")" != "1" ]]; then
+    if _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_git_status"; then
         NEAT_CHECK+=("neat_plugin_git_check")
     fi
 
@@ -30,7 +30,7 @@ _neat_plugin_git_status() {
 }
 
 neat_plugin_git_status() {
-    if [[ "$(_neat_contains "$NEAT_CHECK" "neat_status")" != "1" ]]; then
+    if _neat_contains "${NEAT_CHECK[@]}" "neat_status"; then
         NEAT_CHECK+=("neat_plugin_git_check")
     fi
 
