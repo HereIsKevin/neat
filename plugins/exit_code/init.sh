@@ -16,7 +16,7 @@ neat_plugin_exit_code_check() {
 }
 
 neat_plugin_exit_code() {
-    if _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_exit_code_check"; then
+    if ! _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_exit_code_check"; then
         NEAT_CHECK+=("neat_plugin_exit_code_check")
     fi
 
