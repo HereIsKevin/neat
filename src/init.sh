@@ -1,3 +1,15 @@
+#             ____________   ____________   ____________       ___
+#            / ________  /  / ________  /  /_________  /  ____/  /____
+#           / /       / /  / /_______/ /  __________/ /  /____   ____/
+#          / /       / /  / _________ /  / ________  /       /  /
+#         / /       / /  / /_________   / /_______/ /       /  /____
+#        /_/       /_/  /___________/  /___________/       /_______/
+#
+#                                 Version 0.1
+#
+#        Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
+# Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
+
 # resolver code based on code from https://stackoverflow.com/questions/59895/
 # how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 
