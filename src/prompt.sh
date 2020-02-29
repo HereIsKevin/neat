@@ -85,7 +85,7 @@ neat_prompt_update() {
     NEAT_EXIT_CODE="$?"
 
     for item in "${NEAT_CHECK[@]}"; do
-        ( item )
+        item
     done
 
     if [[ "$(pwd)" != "$NEAT_OLD_DIR" ]] || [[ "$NEAT_UPDATE" == "1" ]]; then
