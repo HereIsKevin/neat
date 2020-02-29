@@ -108,4 +108,8 @@ neat_prompt_update() {
     fi
 }
 
-export PROMPT_COMMAND="{ time neat_prompt_update; } &>> ~/times.txt"
+if [[ "$NEAT_BENCHMARK" == "1" ]]; then
+    export PROMPT_COMMAND="{ time neat_prompt_update; } &>> ~/neat_times.txt"
+else
+    export PROMPT_COMMAND="neat_prompt_update"
+fi
