@@ -5,49 +5,8 @@ NEAT_UPDATE="0"
 NEAT_EXIT_CODE="$?"
 
 neat_prompt_color() {
-    local colors=(
-        "BLACK"
-        "RED"
-        "GREEN"
-        "YELLOW"
-        "BLUE"
-        "MAGENTA"
-        "CYAN"
-        "WHITE"
-        "BRIGHT_BLACK"
-        "BRIGHT_RED"
-        "BRIGHT_GREEN"
-        "BRIGHT_YELLOW"
-        "BRIGHT_BLUE"
-        "BRIGHT_MAGENTA"
-        "BRIGHT_CYAN"
-        "BRIGHT_WHITE"
-        "BG_BLACK"
-        "BG_RED"
-        "BG_GREEN"
-        "BG_YELLOW"
-        "BG_BLUE"
-        "BG_MAGENTA"
-        "BG_CYAN"
-        "BG_WHITE"
-        "BG_BRIGHT_BLACK"
-        "BG_BRIGHT_RED"
-        "BG_BRIGHT_GREEN"
-        "BG_BRIGHT_YELLOW"
-        "BG_BRIGHT_BLUE"
-        "BG_BRIGHT_MAGENTA"
-        "BG_BRIGHT_CYAN"
-        "BG_BRIGHT_WHITE"
-    )
-
-    local color="${1^^}"
-    local var="$"
-
-    if _neat_contains "$colors" "$color"; then
-        NEAT_PROMPT+=("color $(eval "echo \"\001${var}NEAT_${color}\002\"")")
-    else
-        _neat_error "${color,,} is not a color"
-    fi
+    local color="$1"
+    NEAT_PROMPT+=("color \001$(neat_color_get $1)\002")
 }
 
 neat_prompt_text() {
@@ -126,7 +85,7 @@ neat_prompt_update() {
     NEAT_EXIT_CODE="$?"
 
     for item in "${NEAT_CHECK[@]}"; do
-        eval "$item"
+        ( item )
     done
 
     if [[ "$(pwd)" != "$NEAT_OLD_DIR" ]] || [[ "$NEAT_UPDATE" == "1" ]]; then
@@ -141,7 +100,7 @@ neat_prompt_update() {
             elif echo "$item" | grep -e "text .*" > /dev/null; then
                 prompt="${prompt}${item/'text '/}"
             else
-                prompt="${prompt}$(eval "$item")"
+                prompt="${prompt}$("$item")"
             fi
         done
 
