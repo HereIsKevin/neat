@@ -38,6 +38,7 @@ NEAT_BG_BRIGHT_WHITE="\033[47;1m"
 
 neat_color_set() {
     local colors=(
+        "RESET"
         "BLACK"
         "RED"
         "GREEN"
@@ -79,7 +80,7 @@ neat_color_set() {
         _neat_error "new color value must be specified"
     fi
 
-    if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
+    if _neat_contains "${colors[@]}" "$color"; then
         declare "NEAT_$color=$value"
     else
         _neat_error "$1 is not a color"
@@ -88,6 +89,7 @@ neat_color_set() {
 
 neat_color_get() {
     local colors=(
+        "RESET"
         "BLACK"
         "RED"
         "GREEN"
@@ -124,7 +126,7 @@ neat_color_get() {
 
     local color="${1^^}"
 
-    if [[ "$(_neat_contains "$colors" "$color")" == "1" ]]; then
+    if _neat_contains "${colors[@]}" "$color"; then
         local var="NEAT_$color"
         echo "${!var}"
     else
