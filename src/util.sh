@@ -1,16 +1,16 @@
 _neat_contains() {
-    local list="$1"
-    local value="$2"
-    local found="0"
+    local list=("${@:1:($# - 1)}")
+    local value="${@:$#}"
 
     for item in "${list[@]}"; do
         if [[ "$item" == "$value" ]]; then
-            found="1"
-            break
+            true
+            return
         fi
     done
 
-    return "$found"
+    false
+    return
 }
 
 _neat_error() {
