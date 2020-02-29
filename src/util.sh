@@ -1,6 +1,7 @@
 _neat_contains() {
     local list=("${@:1:($# - 1)}")
     local value="${@:$#}"
+    local item
 
     for item in "${list[@]}"; do
         if [[ "$item" == "$value" ]]; then

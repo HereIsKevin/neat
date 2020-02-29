@@ -23,6 +23,8 @@ neat_plugin_load() {
 }
 
 neat_plugin_cleanup() {
+    local plugin
+
     for plugin in "${NEAT_PLUGINS[@]}"; do
         if [[ -f "$plugin/unaliases.sh" ]]; then
             source "$plugin/unaliases.sh"

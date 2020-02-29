@@ -84,6 +84,8 @@ neat_prompt_cmdnumber() {
 neat_prompt_update() {
     NEAT_EXIT_CODE="$?"
 
+    local item
+
     for item in "${NEAT_CHECK[@]}"; do
         "$item"
     done

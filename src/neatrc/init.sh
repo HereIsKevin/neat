@@ -6,9 +6,9 @@ NEAT_RCS=(
     "$NEAT/lib/neatrc.sh"
 )
 
-for file in "${NEAT_RCS[@]}"; do
-    if [[ -f "$file" ]]; then
-        source "$file"
+for _neat_file in "${NEAT_RCS[@]}"; do
+    if [[ -f "$_neat_file" ]]; then
+        source "$_neat_file"
         break
     fi
 done
