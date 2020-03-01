@@ -1,4 +1,4 @@
-<pre style="text-align: center;">
+<pre align="center">
     <code>
  _______________________________________________________________
 |      ____________   ____________   ____________       ___     |
@@ -11,10 +11,10 @@
     </code>
 </pre>
 
-<img src="./screenshot.png"
-    alt="Screenshot and demo of neat"
-    style="margin-left: auto; margin-right: auto; display: block;">
+<p align="center">
+    <img src="./screenshot.png" alt="Screenshot and demo of neat">
+</p>
 
-<p style="font-size: 0.75rem; text-align: center;">
+<p align="center">
     Neat and simple bash prompt
 </p>
