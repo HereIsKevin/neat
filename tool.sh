@@ -3,27 +3,27 @@
 OUTFILE="./neat.sh"
 
 _format() {
-    shfmt -i 4 -sr -ci -w $@
+    shfmt -i 4 -sr -ci -w "$@"
 }
 
 format() {
-    _format "./bin/*" "./bin/**/*" \
-        "./plugins/*" "./plugins/**/*" \
-        "./src/*" "./src/**/*" \
+    _format ./bin/* ./bin/**/* \
+        ./plugins/* ./plugins/**/* \
+        ./src/* ./src/**/* \
         "./tool.sh" 2> /dev/null
 }
 
 _build() {
-    cat "$1" | while read -r line || [[ -n $line ]]; do
+    while read -r line || [[ -n $line ]]; do
         if echo "$line" | grep -e "source \"\$NEAT/.*" > /dev/null; then
             local nextfile="${line/'source '/}"
             nextfile="${nextfile/'$NEAT'/./src}"
             nextfile="${nextfile//'"'/}"
             _build "$nextfile"
         else
-            echo "$line" >> $OUTFILE
+            echo "$line" >> "$OUTFILE"
         fi
-    done
+    done < "$1"
 }
 
 build() {
@@ -43,7 +43,7 @@ build() {
     mkdir "./out/plugins/"
     cp -r "./plugins/." "./out/plugins/"
 
-    _format "./out/*" "./out/**/*"
+    _format ./out/* ./out/**/*
 }
 
 clean() {
@@ -74,7 +74,7 @@ main() {
             format
             ;;
         "--help" | "-h" | "")
-            show_help $0
+            show_help "$0"
             ;;
         *)
             echo "$0: $1 is not a command. See '$0 --help'"
@@ -82,4 +82,4 @@ main() {
     esac
 }
 
-main $@
+main "$@"

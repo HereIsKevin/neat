@@ -17,7 +17,7 @@
 
 NEAT_SOURCE="${BASH_SOURCE[0]}"
 
-while [[ -h "$NEAT_SOURCE" ]]; do # resolve $NEAT_SOURCE until not a symlink
+while [[ -L "$NEAT_SOURCE" ]]; do # resolve $NEAT_SOURCE until not a symlink
     NEAT_DIR="$(cd -P "$(dirname "$NEAT_SOURCE")" > /dev/null 2>&1 && pwd)"
     NEAT_SOURCE="$(readlink "$NEAT_SOURCE")"
     # if $NEAT_SOURCE is a symlink, resolve its path relative from the symlink
