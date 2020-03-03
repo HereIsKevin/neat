@@ -1,3 +1,41 @@
 #!/bin/bash
 
-printf "\033[3;1mneat\033[0m CLI: work in progress, please come back later\n"
+NEAT_TEXT="$(
+    printf "\033[3;1m" # bold (bright) and italic
+    printf "neat"
+    printf "\033[0m" # reset
+)"
+
+path() {
+    if [[ "$NEAT" == "" ]]; then
+        false
+        return
+    else
+        echo "$NEAT"
+    fi
+}
+
+show_help() {
+    echo "usage: $NEAT_TEXT [-v | --version] [-h | --help] <command> [<args>]"
+    echo ""
+    echo "options:"
+    echo "    -h, --help          show this help message again"
+    echo "    -v, --version       show the version of $NEAT_TEXT"
+    echo ""
+    echo "commands:"
+    echo "    path                show the path of the $NEAT_TEXT installation"
+    echo "    reload              reload $NEAT_TEXT"
+    echo "    list                list plugins"
+    echo "    search              search for plugins"
+    echo "    update              update plugin repository"
+    echo "    install             install a new plugin"
+    echo "    repo                manage plugin repositories"
+}
+
+main() {
+    # printf "\033[3;1mneat\033[0m CLI: work in progress, please come back later\n"
+    show_help
+    return
+}
+
+main "$@"
