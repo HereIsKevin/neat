@@ -1,3 +1,9 @@
+# =============================git plugin for neat==============================
+# Version 0.1.0
+# Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
+# Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
+# ==============================================================================
+
 NEAT_PLUGIN_GIT_STATUS_CACHE=""
 NEAT_PLUGIN_GIT_BRANCH_CACHE=""
 

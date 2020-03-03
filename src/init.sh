@@ -7,7 +7,7 @@
 #       | /_/       /_/  /___________/  /___________/       /_______/   |
 #       |_______________________________________________________________|
 #
-#                                 Version 0.1
+#                                Version 0.1.0
 #
 #        Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
 # Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
