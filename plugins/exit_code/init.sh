@@ -1,5 +1,5 @@
 # ==========================exit_code plugin for neat===========================
-# Version 0.1.0
+# Version 0.1.1
 # Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
 # Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
 # ==============================================================================
@@ -10,7 +10,7 @@ _neat_plugin_exit_code() {
     if [[ "$NEAT_EXIT_CODE" > "0" ]]; then
         printf "\001$NEAT_RED\002"
     else
-        printf "\001$NEAT_RESET\002"
+        printf ""
     fi
 }
 
