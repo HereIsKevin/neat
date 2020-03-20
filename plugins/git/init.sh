@@ -1,5 +1,5 @@
 # =============================git plugin for neat==============================
-# Version 0.1.0
+# Version 0.1.1
 # Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
 # Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
 # ==============================================================================
@@ -18,7 +18,7 @@ _neat_plugin_git_branch() {
 }
 
 neat_plugin_git_branch() {
-    if ! _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_git_status"; then
+    if ! _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_git_check"; then
         NEAT_CHECK+=("neat_plugin_git_check")
     fi
 
@@ -36,7 +36,7 @@ _neat_plugin_git_status() {
 }
 
 neat_plugin_git_status() {
-    if ! _neat_contains "${NEAT_CHECK[@]}" "neat_status"; then
+    if ! _neat_contains "${NEAT_CHECK[@]}" "neat_plugin_git_check"; then
         NEAT_CHECK+=("neat_plugin_git_check")
     fi
 
