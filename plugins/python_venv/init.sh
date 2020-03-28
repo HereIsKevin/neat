@@ -1,5 +1,5 @@
 # =============================git plugin for neat==============================
-# Version 0.1.0
+# Version 0.1.1
 # Copyright (c) 2020 Kevin Feng (https://github.com/HereIsKevin)
 # Licensed under GPLv3 (https://github.com/HereIsKevin/neat/blob/master/LICENSE)
 # ==============================================================================
@@ -8,7 +8,7 @@ NEAT_PLUGIN_PYTHON_VENV_CACHE=""
 
 _neat_plugin_python_venv() {
     if [[ ! -z "$VIRTUAL_ENV" ]]; then
-        printf "(venv) "
+        printf "($(basename "$VIRTUAL_ENV")) "
     else
         printf ""
     fi
