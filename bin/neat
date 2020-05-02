@@ -6,14 +6,7 @@ NEAT_TEXT="$(
     printf "\033[0m" # reset
 )"
 
-path() {
-    if [[ "$NEAT" == "" ]]; then
-        false
-        return
-    else
-        echo "$NEAT"
-    fi
-}
+NEAT_VERSION="0.1.0"
 
 show_help() {
     echo "usage: $NEAT_TEXT [-v | --version] [-h | --help] <command> [<args>]"
@@ -32,9 +25,99 @@ show_help() {
     echo "    repo                manage plugin repositories"
 }
 
+show_version() {
+    echo "$NEAT_VERSION"
+}
+
+path() {
+    if [[ -z "$NEAT" ]]; then
+        echo "error: $NEAT_TEXT installation not found" 1>&2
+
+        false
+        return
+    else
+        echo "$NEAT"
+    fi
+}
+
+reload() {
+    if [[ -z "$NEAT" ]]; then
+        echo "error: $NEAT_TEXT installation not found" 1>&2
+
+        false
+        return
+    elif [[ ! -f "$NEAT/neat.sh" ]]; then
+        echo "error: $NEAT_TEXT installation damaged or modified" 1>&2
+
+        false
+        return
+    else
+        source "$NEAT/neat.sh"
+    fi
+}
+
+_contains() {
+    local list=("${@:1:($# - 1)}")
+    local value="${@:$#}"
+    local item
+
+    for item in "${list[@]}"; do
+        if [[ "$item" == "$value" ]]; then
+            true
+            return
+        fi
+    done
+
+    false
+    return
+}
+
 main() {
-    # printf "\033[3;1mneat\033[0m CLI: work in progress, please come back later\n"
-    show_help
+    local current_command=""
+    local options=()
+    local values=()
+
+    local commands=("path" "reload" "list" "search" "update" "install" "repo")
+
+    local item
+
+    for item in "$@"; do
+        if _contains "${commands[@]}" "$item" && [[ -z "$current_command" ]]; then
+            current_command="$item"
+        elif [[ "$item" =~ ^(-|--)[a-z]+$ ]]; then
+            options+=("$item")
+        else
+            values+=("$item")
+        fi
+    done
+
+    if [[ -z "$current_command" ]]; then
+        if [[ ! -z "$values" ]]; then
+            echo "$NEAT_TEXT: unknown command \"${values[0]}\"" 1>&2
+        elif [[ "${options[0]}" == "--help" || "${options[0]}" == "-h" || -z "$options" ]]; then
+            show_help
+        elif [[ "${options[0]}" == "--version" || "${options[0]}" == "-v" ]]; then
+            show_version
+        fi
+    else
+        case "$current_command" in
+            "path")
+                path
+                ;;
+            "reload")
+                reload
+                ;;
+            "list" | "search" | "update" | "install" | "repo")
+                echo "error: \"$current_command\" not implemented"
+                false
+                ;;
+            *)
+                echo "error: internal problem" 1>&2
+                false
+                ;;
+        esac
+    fi
+
     return
 }
 
