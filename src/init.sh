@@ -32,4 +32,4 @@ source "$NEAT/colors.sh"
 source "$NEAT/prompt.sh"
 source "$NEAT/neatrc/init.sh"
 
-export PATH="$NEAT/bin:$PATH"
+alias neat="source $NEAT/bin/neat"
