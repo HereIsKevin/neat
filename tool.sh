@@ -19,6 +19,7 @@ _build() {
             local nextfile="${line/'source '/}"
             nextfile="${nextfile/'$NEAT'/./src}"
             nextfile="${nextfile//'"'/}"
+            echo >> "$OUTFILE"
             _build "$nextfile"
         else
             echo "$line" >> "$OUTFILE"
