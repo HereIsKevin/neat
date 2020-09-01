@@ -1,10 +1,10 @@
+---
+
+If you find ***neat*** inspiring, amazing, or even just interesting, please give it a ⭐️ to help the project grow. Feedback is always welcome through issues, though please remember to be polite.
+
+---
+
 # *neat*
-
----
-
-If you find ***neat*** inspiring, amazing, or even just interesting, please give it a ⭐️ to help the project grow.
-
----
 
 **Neat, customizable, and blazing-fast bash prompt**
 
