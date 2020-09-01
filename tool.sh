@@ -10,7 +10,7 @@ format() {
     _format ./bin/* ./bin/**/* \
         ./plugins/* ./plugins/**/* \
         ./src/* ./src/**/* \
-        "./tool.sh" 2> /dev/null
+        "./tool.sh" "./install.sh" 2> /dev/null
 }
 
 _build() {
