@@ -1,9 +1,9 @@
 #!/bin/bash
 
 NEAT_TEXT="$(
-    printf "\033[3;1m" # bold (bright) and italic
+    printf "\033[3;1m"
     printf "neat"
-    printf "\033[0m" # reset
+    printf "\033[0m"
 )"
 
 NEAT_VERSION="0.1.0"
@@ -18,11 +18,10 @@ show_help() {
     echo "commands:"
     echo "    path                show the path of the $NEAT_TEXT installation"
     echo "    reload              reload $NEAT_TEXT"
-    echo "    list                list plugins"
-    echo "    search              search for plugins"
-    echo "    update              update plugin repository"
+    echo "    list                list installed plugins"
+    echo "    update              update a plugin"
     echo "    install             install a new plugin"
-    echo "    repo                manage plugin repositories"
+    echo "    uninstall           uninstall a plugin"
 }
 
 show_version() {
@@ -47,7 +46,7 @@ reload() {
         false
         return
     elif [[ ! -f "$NEAT/neat.sh" ]]; then
-        echo "error: $NEAT_TEXT installation damaged or modified" 1>&2
+        echo "error: $NEAT_TEXT installation damaged" 1>&2
 
         false
         return
@@ -56,67 +55,131 @@ reload() {
     fi
 }
 
-_contains() {
-    local list=("${@:1:($# - 1)}")
-    local value="${@:$#}"
-    local item
+list() {
+    if [[ -z "$NEAT" ]]; then
+        echo "error: $NEAT_TEXT installation not found" 1>&2
 
-    for item in "${list[@]}"; do
-        if [[ "$item" == "$value" ]]; then
-            true
-            return
-        fi
+        false
+        return
+    fi
+
+    echo "builtin plugins:"
+
+    if [[ -d "$NEAT/plugins" ]]; then
+        ls -1 "$NEAT/plugins"
+    fi
+
+    echo
+    echo "installed plugins:"
+
+    if [[ -d "$HOME/.neat/" ]]; then
+        ls -1 "$HOME/.neat/"
+    fi
+}
+
+update() {
+    local current="$(pwd)"
+
+    cd "$NEAT"
+    cd "../"
+
+    git pull
+    ./tool.sh build
+
+    cd "$current"
+
+    if [[ -z "$@" ]]; then
+        for plugin in "$(ls -1"$HOME/.neat/")"; do
+            git pull "$HOME/.neat/$plugin/"
+        done
+    else
+        for plugin in "$@"; do
+            git pull "$HOME/.neat/$plugin/"
+        done
+    fi
+}
+
+install() {
+    if [[ ! -d "$HOME/.neat/" ]]; then
+        mkdir -p "$HOME/.neat/"
+    fi
+
+    local current="$(pwd)"
+
+    cd "$HOME/.neat/"
+
+    for plugin in "$@"; do
+        git clone "$plugin"
     done
 
-    false
-    return
+    cd "$current"
+}
+
+uninstall() {
+    if [[ ! -d "$HOME/.neat/" ]]; then
+        mkdir -p "$HOME/.neat/"
+    fi
+
+    for plugin in "$@"; do
+        rm -rf "$HOME/.neat/$plugin/"
+    done
 }
 
 main() {
-    local current_command=""
-    local options=()
-    local values=()
+    local commands=(
+        "-h"
+        "--help"
+        "-v"
+        "--version"
+        "path"
+        "reload"
+        "list"
+        "update"
+        "install"
+        "uninstall"
+    )
 
-    local commands=("path" "reload" "list" "search" "update" "install" "repo")
+    local command="$1"
 
-    local item
+    if [[ "$command" == "" ]]; then
+        show_help
 
-    for item in "$@"; do
-        if _contains "${commands[@]}" "$item" && [[ -z "$current_command" ]]; then
-            current_command="$item"
-        elif [[ "$item" =~ ^(-|--)[a-z]+$ ]]; then
-            options+=("$item")
-        else
-            values+=("$item")
-        fi
-    done
-
-    if [[ -z "$current_command" ]]; then
-        if [[ ! -z "$values" ]]; then
-            echo "$NEAT_TEXT: unknown command \"${values[0]}\"" 1>&2
-        elif [[ "${options[0]}" == "--help" || "${options[0]}" == "-h" || -z "$options" ]]; then
-            show_help
-        elif [[ "${options[0]}" == "--version" || "${options[0]}" == "-v" ]]; then
-            show_version
-        fi
-    else
-        case "$current_command" in
-            "path")
-                path
-                ;;
-            "reload")
-                reload
-                ;;
-            "list" | "search" | "update" | "install" | "repo")
-                echo "error: \"$current_command\" not implemented"
-                false
-                ;;
-            *)
-                echo "error: internal problem" 1>&2
-                false
-                ;;
-        esac
+        false
+        return
     fi
+
+    local arguments=("${@:2:($# - 1)}")
+
+    case "$command" in
+        "-h" | "--help")
+            show_help
+            ;;
+        "-v" | "--version")
+            show_version
+            ;;
+        "path")
+            path "$arguments"
+            ;;
+        "reload")
+            reload "$arguments"
+            ;;
+        "list")
+            list "$arguments"
+            ;;
+        "update")
+            update "$arguments"
+            ;;
+        "install")
+            install "$arguments"
+            ;;
+        "uninstall")
+            uninstall "$arguments"
+            ;;
+        *)
+            echo "error: '$command' is not a command" 1>&2
+            false
+            ;;
+    esac
 
     return
 }
