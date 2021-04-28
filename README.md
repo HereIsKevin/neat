@@ -19,6 +19,10 @@ If you find ***neat*** inspiring, amazing, or even just interesting, please give
 - **Beautiful:** ***neat*** includes a beautiful configuration out of the box, with full customization of colors and an array of plugins
 - **Extensible:** Intuitive plugin system with simple plugin manager allows ***neat*** to be easily extensible
 
+## Important Warning
+
+Do not use the ***neat*** CLI, as it is very unstable and could potentially self-destruct.
+
 ## Installing
 
 ***neat*** is only functional on `bash` 4 or later, and has only been throughly tested on `bash` 5. To install, simply install with the following command.
@@ -34,7 +38,3 @@ wget -O - https://raw.githubusercontent.com/HereIsKevin/neat/master/install.sh |
 ```
 
 If you have any concerns about the shell scripts, feel free to review them on [GitHub](https://github.com/HereIsKevin/neat)
-
-## Contributing
-
-The core of ***neat*** is currently not accepting contributions, though you are welcome to open issues and create your own plugins.
