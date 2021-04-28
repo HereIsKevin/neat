@@ -43,8 +43,6 @@ build() {
 
     mkdir "./out/plugins/"
     cp -r "./plugins/." "./out/plugins/"
-
-    _format ./out/* ./out/**/*
 }
 
 clean() {
